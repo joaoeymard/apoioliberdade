@@ -1,0 +1,136 @@
+/* Background e cores */
+body {
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  font-family: 'Roboto', sans-serif;
+  color: #343a40;
+}
+
+header {
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: block;
+}
+
+.header-img {
+  width: 100%;
+  height: 250px;
+  border-radius: 0px;
+  object-fit: cover;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+main {
+  margin-top: -40px;
+  display: block;
+}
+
+.container {
+  position: relative;
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 40px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 9 !important;
+}
+
+h1 {
+  font-size: 1.7em;
+  font-weight: bold;
+}
+
+/* Barra de Progresso estilizada */
+.progress {
+  height: 30px;
+  margin-bottom: 20px;
+  background-color: #f1f3f5;
+  border-radius: 50px;
+}
+
+.progress-bar {
+  background-color: #17a2b8;
+  border-radius: 50px;
+  width: 0;
+  transition: width 1.5s;
+}
+
+/* Estilo da descrição */
+.description {
+  font-size: 1.2em;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  background-color: #e9ecef5d;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.description p {
+  margin: 0;
+}
+
+/* Botão de Doação */
+.btn-doar {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  font-size: 1.05em;
+  padding: 15px;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.btn-doar:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.btn-doar span {
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Estilo da lista de doações */
+.donations-list h3 {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
+
+.donation-item {
+  background-color: #e9ecef;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.donation-info {
+  font-size: 0.9em;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-top: 20px;
+}
