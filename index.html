@@ -90,7 +90,7 @@
     }
 
     const getDonations = async () => {
-      const _donations = await (await fetch('./donations.json')).json()
+      const _donations = await (await fetch('./donations.json?t=' + new Date().getTime())).json()
 
       return donations = _donations.map(d => ({
         ...d,
