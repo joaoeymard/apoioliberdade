@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Apoie nossa liberdade ✨</title>
+  <title>Pix Presente - Lara & Eymard</title>
   <link rel="icon" href="./asserts/favicon.ico" type="image/x-icon">
-  <meta name="description" content="Nos ajude a iniciar nossa vida sem dívidas!">
-  <meta name="keywords" content="doação, ajuda, apoio, liberdade, vida, dívidas, segurança, tranquilidade">
+  <meta name="description" content="">
+  <meta name="keywords" content="pix, presente, casamento">
   <meta name="author" content="@joaoeymard">
 
   <link href="./libs/bootstrap.min.css" rel="stylesheet">
@@ -27,34 +27,37 @@
     <div class="container text-center">
 
       <!-- Título -->
-      <h1 class="mt-3">Apoie nossa liberdade ✨</h1>
-      <p class="m-0 mb-4">Nos ajude a iniciar nossa vida sem dívidas!</p>
+      <h1 class="mt-3">Pix - Presente</h1>
 
-      <!-- Barra de Progresso -->
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="10000">
-        </div>
-      </div>
+      <!-- QRCode -->
+      <figure>
+        <img src="asserts/chavepix.svg" alt="Chave Pix" class="w-50" />
+      </figure>
 
       <!-- Descrição -->
       <div class="description">
-        <p>
-          Sua contribuição vai direto para nossa reserva de emergência. 🏦<br>Qualquer valor é bem-vindo e fará a
-          diferença para começarmos seguros e tranquilos. 🙏
-        </p>
+        <table class="table table-sm m-0">
+          <tbody>
+            <tr>
+              <th class="border-0" scope="row">Nome:</th>
+              <td class="border-0">Lara Ribeiro Soares Bender</td>
+            </tr>
+            <tr>
+              <th scope="row">CPF:</th>
+              <td>•••.805.663-••</td>
+            </tr>
+            <tr>
+              <th scope="row">Banco:</th>
+              <td>260 - Nu Pagamentos S.A.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- Lista das Últimas Doações -->
-      <!-- <div class="donations-list my-3 mb-4">
-        <h3>Últimas Doações</h3>
-        <div class="list"></div>
-      </div> -->
-
       <!-- Botão de Doação -->
-      <a href="https://nubank.com.br/cobrar/1546dx/66e786fc-f57f-4c89-aa98-a7ba393acb3d" class="btn btn-doar"
-        target="_blank">
-        <span>Invista no nosso futuro 💖</span>
-      </a>
+      <button onclick="btnCopiarPix(this)" class="btn btn-doar">
+        <span>Copiar QRCode</span>
+      </button>
 
     </div>
 
@@ -62,7 +65,7 @@
 
   <!-- Footer -->
   <footer class="mx-4 mb-5 pb-3">
-    <p>Obrigado por nos ajudar a iniciar nossa vida com segurança! 🙌</p>
+    <p>Nosso muito obrigado! 💖</p>
   </footer>
 
   <script src="./libs/jquery-3.5.1.slim.min.js"></script>
@@ -70,80 +73,35 @@
   <script src="./libs/bootstrap.min.js"></script>
 
   <script>
-    const $donationsList = document.querySelector('.donations-list .list');
-    const $progressBar = document.querySelector('.progress-bar');
-    const expected = 10000;
-    let donations = [];
+    const pixCopiaCola = '00020126580014BR.GOV.BCB.PIX013631147656-9b15-4e93-bef7-1800958ba68f5204000053039865802BR5901N6001C62110507WEDDING6304A258';
 
-    const formatCurrency = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
-    });
+    function btnCopiarPix(target) {
 
-    const formatDate = new Intl.DateTimeFormat('pt-BR');
+      try {
 
+        navigator.clipboard.writeText(pixCopiaCola);
+        console.log('Copiado! navigator.clipboard');
 
-    function calculateIncrement(difficulty, currentValue, totalValue) {
-      // Calculate increment based on difficulty
-      const factor = Math.pow(difficulty, currentValue / totalValue);
-      return (1 / factor) * 100;
-    }
+      } catch (error) {
 
-    const getDonations = async () => {
-      const _donations = await (await fetch('./donations.json?t=' + new Date().getTime())).json()
+        const $input = document.createElement('input');
+        $input.value = pixCopiaCola;
+        document.body.appendChild($input);
+        $input.select();
+        document.execCommand('copy');
+        document.body.removeChild($input);
 
-      return donations = _donations.map(d => ({
-        ...d,
-        date: new Date(d.date + 'T00:00:00'),
-      })).sort((a, b) => b.date - a.date);
-    };
+        console.log('Copiado! document.execCommand');
 
-    function totalReceived(_donations) {
-      return _donations.reduce((acc, donation) => acc + donation.value, 0);
-    }
+      } finally {
+        const $span = target.querySelector('span');
 
-    function updateProgressBar(received) {
-      const difficulty = 5;
-      const increment = calculateIncrement(difficulty, received, expected);
+        target.style.backgroundColor = '#28a745';
 
-      const percentage = Math.min(100 - increment, 100);
-
-      if (percentage >= 98) {
-        $progressBar.style.width = `100%`;
-        $progressBar.classList.add('bg-success');
-        $progressBar.textContent = 'Meta atingida! Obg ❤️';
-        return;
+        $span.innerText = 'Copiado! Obg 😊';
+        $span.style.color = '#fff';
+        $span.style.animation = 'none';
       }
-
-      $progressBar.style.width = `${percentage}%`;
-      $progressBar.textContent = `${percentage.toFixed(0)}%`;
-    }
-
-    function renderDonations() {
-      donations
-        .filter(d => d.value >= 120)
-        .slice(0, 5)
-        .forEach((item, index) => {
-          setTimeout(() => {
-            const el = document.createElement('div');
-            el.classList.add('donation-item', 'animate__animated', 'animate__fadeInLeft');
-            el.innerHTML = `
-              <span class="donation-info">${formatCurrency.format(item.value)}</span>
-              <span class="donation-date">${formatDate.format(item.date)}</span>
-            `;
-
-            $donationsList.appendChild(el);
-          }, (index + 1) * 1000);
-        });
-    }
-
-    window.onload = async () => {
-      await getDonations();
-
-      setTimeout(() => {
-        updateProgressBar(totalReceived(donations));
-        // renderDonations();
-      }, 700);
     }
   </script>
 </body>
